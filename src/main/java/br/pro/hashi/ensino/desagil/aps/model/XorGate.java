@@ -1,6 +1,7 @@
 package br.pro.hashi.ensino.desagil.aps.model;
 
 public class XorGate extends Gate {
+
     private final NandGate nandLeft;
     private final NandGate nandTop;
     private final NandGate nandBottom;
