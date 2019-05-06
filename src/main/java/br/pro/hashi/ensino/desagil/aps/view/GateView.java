@@ -20,7 +20,7 @@ public class GateView extends FixedPanel implements ItemListener {
     private final Switch[] switches;
     private final Gate gate;
     private final JCheckBox[] inputBoxes;
-    private final JCheckBox outputBox;
+    private final JCheckBox[] outputBox;
     private final Image image;
 
     public GateView(Gate gate) {
@@ -32,6 +32,7 @@ public class GateView extends FixedPanel implements ItemListener {
 
         switches = new Switch[inputSize];
         inputBoxes = new JCheckBox[inputSize];
+        outputBox = new JCheckBox[gate.getOutputSize()];
 
         for (int i = 0; i < inputSize; i++) {
             switches[i] = new Switch();
@@ -40,7 +41,20 @@ public class GateView extends FixedPanel implements ItemListener {
             gate.connect(i, switches[i]);
         }
 
-        outputBox = new JCheckBox();
+        for (int i = 0; i < gate.getOutputSize(); i++) {
+
+            outputBox[i] = new JCheckBox();
+
+            if (gate.getOutputSize() == 2){
+                add(outputBox[i], BORDER + SWITCH_SIZE + GATE_WIDTH, (GATE_HEIGHT - SWITCH_SIZE)*(i*2) / 2, SWITCH_SIZE, SWITCH_SIZE);
+            }
+            else{
+                add(outputBox[i], BORDER + SWITCH_SIZE + GATE_WIDTH, (GATE_HEIGHT - SWITCH_SIZE) / 2, SWITCH_SIZE, SWITCH_SIZE);
+
+            }
+
+            outputBox[i].setEnabled(false);
+        }
 
         int x, y, step;
 
@@ -52,7 +66,7 @@ public class GateView extends FixedPanel implements ItemListener {
             add(inputBox, x, y, SWITCH_SIZE, SWITCH_SIZE);
         }
 
-        add(outputBox, BORDER + SWITCH_SIZE + GATE_WIDTH, (GATE_HEIGHT - SWITCH_SIZE) / 2, SWITCH_SIZE, SWITCH_SIZE);
+
 
         String name = gate.toString() + ".png";
         URL url = getClass().getClassLoader().getResource(name);
@@ -62,7 +76,6 @@ public class GateView extends FixedPanel implements ItemListener {
             inputBox.addItemListener(this);
         }
 
-        outputBox.setEnabled(false);
 
         update();
     }
@@ -76,9 +89,11 @@ public class GateView extends FixedPanel implements ItemListener {
             }
         }
 
-        boolean result = gate.read();
+        for (int i = 0; i < gate.getOutputSize(); i++) {
+            outputBox[i].setSelected(gate.read(i));
 
-        outputBox.setSelected(result);
+        }
+
     }
 
     @Override

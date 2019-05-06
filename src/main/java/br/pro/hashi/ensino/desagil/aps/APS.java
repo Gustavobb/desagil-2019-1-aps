@@ -12,6 +12,7 @@ public class APS {
         model.add(new NandGate());
         model.add(new NotGate());
         model.add(new OrGate());
+        model.add(new HalfAdder());
         model.add(new AndGate());
         model.add(new XorGate());
 
