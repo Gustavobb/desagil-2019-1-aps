@@ -46,7 +46,7 @@ public class GateView extends FixedPanel implements ItemListener {
             outputBox[i] = new JCheckBox();
 
             if (gate.getOutputSize() == 2){
-                add(outputBox[i], BORDER + SWITCH_SIZE + GATE_WIDTH, (GATE_HEIGHT - SWITCH_SIZE)*(i*2) / 2, SWITCH_SIZE, SWITCH_SIZE);
+                add(outputBox[i], BORDER + SWITCH_SIZE + GATE_WIDTH, 10+(GATE_HEIGHT - SWITCH_SIZE)*(i*5/3) / 2, SWITCH_SIZE, SWITCH_SIZE);
             }
             else{
                 add(outputBox[i], BORDER + SWITCH_SIZE + GATE_WIDTH, (GATE_HEIGHT - SWITCH_SIZE) / 2, SWITCH_SIZE, SWITCH_SIZE);
